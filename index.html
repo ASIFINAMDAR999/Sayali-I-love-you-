@@ -626,7 +626,7 @@
         <div class="gallery-stage" id="galleryStage">
             <!-- Top bar -->
             <div class="gallery-top-bar">
-                <p class="gallery-title">💖 My Heart, My Sayali 💖</p>
+                <p class="gallery-title">💖 My Heart,is yours forever 💖</p>
                 <button class="gallery-close" id="galleryClose" aria-label="Close gallery">✕</button>
             </div>
 
@@ -686,19 +686,20 @@
                 "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549771_Original.jpeg",
             ];
 
+            // ── Your custom captions (12 items matching the 12 photos) ──
             const romanticCaptions = [
-                "My everything 💕",
-                "Forever yours 🌹",
-                "Beautiful moment ✨",
-                "My heart beats for you 💗",
-                "Endless love ♾️",
-                "You & me 💑",
-                "Precious memory 📸",
-                "My world 🌍",
-                "Soulmate 💫",
-                "Always & forever 💖",
-                "Dream come true 🌙",
-                "Love of my life ❤️",
+                "My Good Luck Charm 🍀",
+                "My Favorite Person 🤍",
+                "My Happy Place 🌸",
+                "My Safe Place 🫂",
+                "My Biggest Blessing 🙏",
+                "My Greatest Joy ☀️",
+                "My Sunshine 🌞",
+                "My Peace 🕊️",
+                "My Forever ❤️",
+                "My Everything 💕",
+                "My Home 🏡",
+                "My Heart 💖"
             ];
 
             // ── Heart words generation ──
@@ -1081,8 +1082,6 @@
                 updateProgress();
                 if (autoScrollActive && !autoScrollPaused) {
                     // Check if this scroll event was triggered by our own RAF
-                    // We use a flag, but simpler: if the difference between
-                    // expected position and actual is large, user intervened.
                     const dist = getTotalScrollDistance();
                     if (dist <= 1) return;
                     const speed = dist / SCROLL_DURATION_MS;
