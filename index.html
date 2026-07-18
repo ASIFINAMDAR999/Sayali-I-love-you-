@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +14,11 @@
       --white: #fff7fb;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       min-height: 100vh;
@@ -26,6 +30,8 @@
         radial-gradient(circle at 50% 74%, rgba(255, 0, 80, 0.2), transparent 26%),
         linear-gradient(180deg, #09090f, var(--bg));
     }
+
+
 
     .stage {
       min-height: 100vh;
@@ -47,8 +53,15 @@
       pointer-events: none;
     }
 
+    .main-title {
+      font-size: clamp(34px, 7vw, 70px);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 0 28px rgba(255, 45, 117, 0.7);
+    }
+
     .log {
-      margin: 0 auto;
+      margin: 22px auto 0;
       width: min(560px, 92vw);
       text-align: left;
       font-family: "Cascadia Code", Consolas, monospace;
@@ -68,7 +81,38 @@
     .log-line:nth-child(4) { animation-delay: 1.35s; }
 
     @keyframes lineIn {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button {
+      margin-top: 22px;
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 24px;
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff2d75, #b8003d);
+      box-shadow: 0 12px 38px rgba(255, 45, 117, 0.36);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: buttonIn 0.45s ease forwards 2s;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    @keyframes buttonIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .heart-wrap {
@@ -86,8 +130,14 @@
     }
 
     @keyframes heartAppear {
-      from { transform: rotateX(18deg) scale(0.72); filter: blur(6px); }
-      to { transform: rotateX(0deg) scale(1); filter: blur(0); }
+      from {
+        transform: rotateX(18deg) scale(0.72);
+        filter: blur(6px);
+      }
+      to {
+        transform: rotateX(0deg) scale(1);
+        filter: blur(0);
+      }
     }
 
     @keyframes beat {
@@ -116,7 +166,10 @@
     }
 
     @keyframes wordIn {
-      to { opacity: var(--opacity); transform: translate(-50%, -50%) scale(1) rotate(var(--rot)); }
+      to {
+        opacity: var(--opacity);
+        transform: translate(-50%, -50%) scale(1) rotate(var(--rot));
+      }
     }
 
     .center-text {
@@ -124,10 +177,8 @@
       inset: 0;
       display: grid;
       place-items: center;
-      padding: 0 8%;
-      font-size: clamp(20px, 5vw, 48px);
-      font-weight: 900;
-      line-height: 1.25;
+      font-size: clamp(34px, 7vw, 72px);
+      font-weight: 950;
       text-align: center;
       color: white;
       text-shadow:
@@ -140,7 +191,10 @@
     }
 
     @keyframes centerIn {
-      to { opacity: 1; transform: scale(1); }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .glow {
@@ -157,20 +211,27 @@
     }
 
     @media (max-width: 520px) {
-      .heart-wrap { width: 106vw; }
-      .heart-word { font-size: 7px; }
+      .heart-wrap {
+        width: 106vw;
+      }
+
+      .heart-word {
+        font-size: 7px;
+      }
     }
   </style>
 </head>
 <body>
   <main class="stage" id="stage">
     <section class="intro" id="intro">
+      <h1 class="main-title">Sayali, I love you ♾️❤️</h1>
       <div class="log">
         <div class="log-line">[system] Initializing HEART_PROTOCOL_v2.0...</div>
         <div class="log-line">[status] Loading memory fragments...</div>
         <div class="log-line">[fonts] Preloading custom heart font for you...</div>
         <div class="log-line">[ready] One message is waiting.</div>
       </div>
+      <button class="button" id="startBtn">ACCEPT MESSAGE</button>
     </section>
 
     <section class="heart-wrap" id="heart"></section>
@@ -180,8 +241,10 @@
   <script>
     const heart = document.getElementById("heart");
     const intro = document.getElementById("intro");
+    const startBtn = document.getElementById("startBtn");
+    const stage = document.getElementById("stage");
 
-    const words = ["I love you", "Sayali", "forever", "my heart", "♾️❤️"];
+    const words = ["I love you", "love you", "forever", "my heart", "<3"];
     const points = [];
     const step = 0.105;
 
@@ -231,26 +294,15 @@
     }
 
     function showHeart() {
-      if (heart.classList.contains("show")) return;
       makeHeart();
       intro.classList.add("hide");
       heart.classList.add("show");
     }
 
-    // the message reveals itself automatically shortly after the page opens
-    let autoTimer = setTimeout(showHeart, 3200);
-
-    // tapping anywhere or pressing a key reveals it right away instead of waiting
-    intro.addEventListener("click", () => {
-      clearTimeout(autoTimer);
-      showHeart();
-    });
+    startBtn.addEventListener("click", showHeart);
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        clearTimeout(autoTimer);
-        showHeart();
-      }
+      if (event.key === "Enter" || event.key === " ") showHeart();
     });
 
     window.addEventListener("mousemove", (event) => {
