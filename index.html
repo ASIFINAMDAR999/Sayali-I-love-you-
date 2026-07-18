@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Pure black browser toolbar -->
     <meta name="theme-color" content="#000000" />
-    <!-- Safari iOS pure black status bar -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <title>Click below button to see asif heart</title>
@@ -18,6 +16,7 @@
             --pink-soft: #ff7aa8;
             --red: #ff174f;
             --white: #fff7fb;
+            --deep: #020208;
         }
 
         * {
@@ -80,7 +79,6 @@
             transform: translateY(8px);
             animation: lineIn 0.45s ease forwards;
         }
-
         .log-line:nth-child(2) {
             animation-delay: 0.45s;
         }
@@ -113,7 +111,6 @@
             transform: translateY(10px);
             animation: buttonIn 0.45s ease forwards 2s;
         }
-
         .button:hover {
             transform: translateY(-1px);
             filter: brightness(1.08);
@@ -134,7 +131,6 @@
             opacity: 0;
             pointer-events: none;
         }
-
         .heart-wrap.show {
             opacity: 1;
             pointer-events: auto;
@@ -151,7 +147,6 @@
                 filter: blur(0);
             }
         }
-
         @keyframes beat {
             0%,
             100% {
@@ -179,9 +174,7 @@
             font-size: clamp(7px, 1.3vw, 13px);
             white-space: nowrap;
             color: hsl(var(--hue), 100%, var(--light));
-            text-shadow:
-                0 0 7px rgba(255, 45, 117, 0.85),
-                0 0 18px rgba(255, 45, 117, 0.5);
+            text-shadow: 0 0 7px rgba(255, 45, 117, 0.85), 0 0 18px rgba(255, 45, 117, 0.5);
             opacity: 0;
             transform: translate(-50%, -50%) scale(0.2) rotate(var(--rot));
             animation: wordIn 0.75s cubic-bezier(.2, .9, .2, 1.15) forwards;
@@ -204,9 +197,7 @@
             font-weight: 950;
             text-align: center;
             color: white;
-            text-shadow:
-                0 0 22px rgba(255, 255, 255, 0.5),
-                0 0 46px rgba(255, 45, 117, 0.9);
+            text-shadow: 0 0 22px rgba(255, 255, 255, 0.5), 0 0 46px rgba(255, 45, 117, 0.9);
             opacity: 0;
             transform: scale(0.9);
             animation: centerIn 0.8s ease forwards 1.15s;
@@ -244,30 +235,15 @@
             transition: all 0.35s ease;
             box-shadow: 0 0 24px rgba(255, 45, 117, 0.25);
         }
-
         .heart-wrap.show .open-heart-btn {
-            animation: btnReveal 0.7s ease forwards 2.8s;
+            animation: btnReveal 0.7s ease forwards 2.8s, btnPulse 2.4s ease-in-out infinite 3.6s;
             pointer-events: auto;
         }
-
         @keyframes btnReveal {
             to {
                 opacity: 1;
             }
         }
-
-        .open-heart-btn:hover {
-            background: rgba(255, 45, 117, 0.22);
-            border-color: rgba(255, 122, 168, 0.9);
-            box-shadow: 0 0 38px rgba(255, 45, 117, 0.55), 0 0 70px rgba(255, 45, 117, 0.2);
-            transform: translateX(-50%) scale(1.06);
-        }
-
-        /* ── Pulse on the button after it appears ── */
-        .heart-wrap.show .open-heart-btn {
-            animation: btnReveal 0.7s ease forwards 2.8s, btnPulse 2.4s ease-in-out infinite 3.6s;
-        }
-
         @keyframes btnPulse {
             0%,
             100% {
@@ -277,49 +253,88 @@
                 box-shadow: 0 0 44px rgba(255, 45, 117, 0.7), 0 0 72px rgba(255, 45, 117, 0.3);
             }
         }
+        .open-heart-btn:hover {
+            background: rgba(255, 45, 117, 0.22);
+            border-color: rgba(255, 122, 168, 0.9);
+            box-shadow: 0 0 38px rgba(255, 45, 117, 0.55), 0 0 70px rgba(255, 45, 117, 0.2);
+            transform: translateX(-50%) scale(1.06);
+        }
 
-        /* ── Gallery overlay ── */
+        /* ── Gallery Overlay ── */
         .gallery-overlay {
             position: fixed;
             inset: 0;
             z-index: 200;
-            background: rgba(2, 2, 8, 0.88);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
+            background: rgba(2, 2, 8, 0.92);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease;
-            padding: 16px;
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 0;
         }
-
         .gallery-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .gallery-content {
-            position: relative;
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
+        /* Vignette */
+        .gallery-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 55%, rgba(2, 2, 8, 0.75) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
+        .gallery-stage {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            animation: galleryScaleIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes galleryScaleIn {
+            from {
+                transform: scale(0.94);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Top bar */
+        .gallery-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px 10px;
+            flex-shrink: 0;
+            z-index: 5;
+        }
+        .gallery-title {
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 45, 117, 0.6);
+            letter-spacing: 1.5px;
+            user-select: none;
+        }
         .gallery-close {
-            position: absolute;
-            top: -10px;
-            right: -4px;
-            z-index: 10;
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 45, 117, 0.5);
-            background: rgba(10, 4, 14, 0.8);
+            border: 2px solid rgba(255, 45, 117, 0.45);
+            background: rgba(10, 4, 14, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             color: #fff;
@@ -328,123 +343,206 @@
             display: grid;
             place-items: center;
             transition: all 0.3s ease;
-            line-height: 1;
+            flex-shrink: 0;
         }
-
         .gallery-close:hover {
             background: rgba(255, 45, 117, 0.3);
             border-color: #ff7aa8;
-            box-shadow: 0 0 28px rgba(255, 45, 117, 0.55);
-            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 45, 117, 0.55);
+            transform: scale(1.1);
         }
 
-        .gallery-title {
-            font-size: clamp(18px, 2.5vw, 24px);
-            font-weight: 800;
-            color: #fff;
-            text-shadow: 0 0 18px rgba(255, 45, 117, 0.7);
-            letter-spacing: 1px;
-            text-align: center;
-            user-select: none;
-        }
-
-        .gallery-scroll {
-            display: flex;
-            gap: 22px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+        /* Scrollable grid */
+        .gallery-scroll-view {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 8px 20px 20px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            padding: 10px 8px 16px;
-            width: 100%;
-            align-items: center;
-            /* hide scrollbar but keep functionality */
             scrollbar-width: thin;
-            scrollbar-color: rgba(255, 45, 117, 0.35) transparent;
+            scrollbar-color: rgba(255, 45, 117, 0.3) transparent;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%);
         }
-
-        .gallery-scroll::-webkit-scrollbar {
-            height: 6px;
+        .gallery-scroll-view::-webkit-scrollbar {
+            width: 5px;
         }
-        .gallery-scroll::-webkit-scrollbar-track {
+        .gallery-scroll-view::-webkit-scrollbar-track {
             background: transparent;
         }
-        .gallery-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255, 45, 117, 0.4);
+        .gallery-scroll-view::-webkit-scrollbar-thumb {
+            background: rgba(255, 45, 117, 0.35);
             border-radius: 10px;
         }
 
+        /* Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-flow: dense;
+            gap: 14px;
+            padding-bottom: 10px;
+        }
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 18px;
+            }
+        }
+
+        /* Cards */
         .gallery-card {
-            flex: 0 0 auto;
-            scroll-snap-align: center;
-            width: clamp(260px, 52vw, 420px);
-            aspect-ratio: 3 / 4;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 45, 117, 0.35);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 45, 117, 0.2);
-            background: #0a0a12;
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-            cursor: pointer;
             position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0a0a14;
+            border: 2px solid rgba(255, 45, 117, 0.25);
+            box-shadow: 0 12px 50px rgba(255, 45, 117, 0.18), 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
+            aspect-ratio: 3 / 4;
+            grid-column: span 1;
         }
-
+        .gallery-card.landscape {
+            aspect-ratio: 4 / 3;
+            grid-column: span 2;
+        }
+        .gallery-card.square-ish {
+            aspect-ratio: 1 / 1;
+        }
         .gallery-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px) scale(1.03);
             border-color: rgba(255, 122, 168, 0.7);
-            box-shadow: 0 14px 50px rgba(0, 0, 0, 0.6), 0 0 44px rgba(255, 45, 117, 0.35);
+            box-shadow: 0 20px 60px rgba(255, 45, 117, 0.4), 0 8px 30px rgba(0, 0, 0, 0.6);
+            z-index: 3;
         }
-
         .gallery-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
+            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
         .gallery-card:hover img {
-            transform: scale(1.04);
+            transform: scale(1.08);
         }
 
-        /* ── Navigation arrows ── */
-        .gallery-arrow {
+        /* Caption overlay */
+        .card-caption {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            width: 48px;
-            height: 48px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 16px 14px;
+            background: linear-gradient(to top, rgba(2, 2, 8, 0.9) 0%, rgba(2, 2, 8, 0.5) 60%, transparent 100%);
+            color: #fff;
+            font-size: clamp(12px, 1.3vw, 15px);
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-shadow: 0 0 14px rgba(255, 45, 117, 0.6);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            text-align: center;
+        }
+        .gallery-card:hover .card-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading shimmer */
+        .gallery-card.loading {
+            animation: shimmer 1.6s ease-in-out infinite;
+            background: linear-gradient(110deg, #0a0a16 30%, #1a1020 50%, #0a0a16 70%);
+            background-size: 200% 100%;
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Bottom bar */
+        .gallery-bottom-bar {
+            flex-shrink: 0;
+            padding: 10px 24px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 5;
+        }
+        .progress-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff2d75, #ff7aa8);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.15s linear;
+            box-shadow: 0 0 12px rgba(255, 45, 117, 0.6);
+        }
+        .progress-fill.paused {
+            animation: progressPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes progressPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 12px rgba(255, 45, 117, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 28px rgba(255, 122, 168, 1), 0 0 50px rgba(255, 45, 117, 0.5);
+            }
+        }
+        .play-pause-btn {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid rgba(255, 45, 117, 0.5);
-            background: rgba(10, 4, 14, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 4, 14, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: #fff;
-            font-size: 22px;
+            font-size: 16px;
             cursor: pointer;
             display: grid;
             place-items: center;
             transition: all 0.3s ease;
-            line-height: 1;
-            user-select: none;
+            flex-shrink: 0;
         }
-
-        .gallery-arrow:hover {
+        .play-pause-btn:hover {
             background: rgba(255, 45, 117, 0.28);
             border-color: #ff7aa8;
-            box-shadow: 0 0 30px rgba(255, 45, 117, 0.5);
-            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 26px rgba(255, 45, 117, 0.5);
+            transform: scale(1.1);
+        }
+        .time-indicator {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.6px;
+            user-select: none;
+            white-space: nowrap;
+            min-width: 50px;
+            text-align: center;
         }
 
-        .gallery-prev {
-            left: -20px;
-        }
-        .gallery-next {
-            right: -20px;
-        }
-
-        /* ── Glow at bottom ── */
+        /* Glow */
         .glow {
             position: fixed;
             left: 50%;
@@ -463,46 +561,43 @@
             .heart-wrap {
                 width: 106vw;
             }
-
             .heart-word {
                 font-size: 7px;
             }
-
             .open-heart-btn {
                 bottom: -38px;
                 padding: 12px 22px;
                 font-size: 12px;
                 letter-spacing: 0.8px;
             }
-
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
             .gallery-card {
-                width: 78vw;
-                border-radius: 16px;
+                border-radius: 12px;
             }
-
-            .gallery-arrow {
-                width: 38px;
-                height: 38px;
-                font-size: 18px;
+            .gallery-card.landscape {
+                grid-column: span 2;
             }
-            .gallery-prev {
-                left: -8px;
+            .gallery-top-bar {
+                padding: 12px 14px 6px;
             }
-            .gallery-next {
-                right: -8px;
+            .gallery-bottom-bar {
+                padding: 8px 14px 14px;
             }
-
+            .gallery-scroll-view {
+                padding: 6px 10px 14px;
+            }
             .gallery-close {
-                width: 38px;
-                height: 38px;
-                font-size: 17px;
-                top: -6px;
-                right: 0px;
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
             }
-
-            .gallery-scroll {
-                gap: 14px;
-                padding: 6px 4px 12px;
+            .play-pause-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
             }
         }
     </style>
@@ -521,23 +616,35 @@
         </section>
 
         <section class="heart-wrap" id="heart">
-            <!-- Heart words + center text injected by JS -->
-            <!-- Open My Heart button appears below the heart -->
             <button class="open-heart-btn" id="openHeartBtn">💖 Open My Heart 💖</button>
         </section>
         <div class="glow"></div>
     </main>
 
-    <!-- ── Gallery overlay ── -->
+    <!-- ── Full-Page Cinematic Gallery Overlay ── -->
     <div class="gallery-overlay" id="galleryOverlay">
-        <div class="gallery-content" id="galleryContent">
-            <button class="gallery-close" id="galleryClose" aria-label="Close gallery">✕</button>
-            <p class="gallery-title">💖 My Heart, My Sayali 💖</p>
-            <div class="gallery-scroll" id="galleryScroll">
-                <!-- Image cards injected by JS -->
+        <div class="gallery-stage" id="galleryStage">
+            <!-- Top bar -->
+            <div class="gallery-top-bar">
+                <p class="gallery-title">💖 My Heart, My Sayali 💖</p>
+                <button class="gallery-close" id="galleryClose" aria-label="Close gallery">✕</button>
             </div>
-            <button class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Previous photo">❮</button>
-            <button class="gallery-arrow gallery-next" id="galleryNext" aria-label="Next photo">❯</button>
+
+            <!-- Scrollable grid -->
+            <div class="gallery-scroll-view" id="galleryScrollView">
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="gallery-bottom-bar">
+                <div class="progress-track" id="progressTrack" title="Click to seek">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <button class="play-pause-btn" id="playPauseBtn" aria-label="Play/Pause auto-scroll" title="Play/Pause auto-scroll">⏯</button>
+                <span class="time-indicator" id="timeIndicator">3:00</span>
+            </div>
         </div>
     </div>
 
@@ -547,260 +654,508 @@
     </audio>
 
     <script>
-        const heart = document.getElementById("heart");
-        const intro = document.getElementById("intro");
-        const startBtn = document.getElementById("startBtn");
-        const stage = document.getElementById("stage");
-        const audio = document.getElementById("bgMusic");
-        const openHeartBtn = document.getElementById("openHeartBtn");
-        const galleryOverlay = document.getElementById("galleryOverlay");
-        const galleryScroll = document.getElementById("galleryScroll");
-        const galleryClose = document.getElementById("galleryClose");
-        const galleryPrev = document.getElementById("galleryPrev");
-        const galleryNext = document.getElementById("galleryNext");
-        const galleryContent = document.getElementById("galleryContent");
+        (function() {
+            const heart = document.getElementById("heart");
+            const intro = document.getElementById("intro");
+            const startBtn = document.getElementById("startBtn");
+            const audio = document.getElementById("bgMusic");
+            const openHeartBtn = document.getElementById("openHeartBtn");
+            const galleryOverlay = document.getElementById("galleryOverlay");
+            const galleryGrid = document.getElementById("galleryGrid");
+            const galleryScrollView = document.getElementById("galleryScrollView");
+            const galleryClose = document.getElementById("galleryClose");
+            const progressFill = document.getElementById("progressFill");
+            const progressTrack = document.getElementById("progressTrack");
+            const playPauseBtn = document.getElementById("playPauseBtn");
+            const timeIndicator = document.getElementById("timeIndicator");
+            const galleryStage = document.getElementById("galleryStage");
 
-        // ── Supabase image URLs ──
-        const photoUrls = [
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/6BE1C9FA-6CA5-47B5-9987-428189A35FFF.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0005_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0010_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3381.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3389.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_4268.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532842_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532868_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546651_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546662_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549757_Original.jpeg",
-            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549771_Original.jpeg",
-        ];
+            // ── Supabase image URLs ──
+            const photoUrls = [
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/6BE1C9FA-6CA5-47B5-9987-428189A35FFF.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0005_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0010_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3381.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3389.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_4268.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532842_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532868_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546651_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546662_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549757_Original.jpeg",
+                "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549771_Original.jpeg",
+            ];
 
-        // ── Build heart words ──
-        const words = ["I love you", "love you", "forever", "my heart", "<3"];
-        const points = [];
-        const step = 0.105;
+            const romanticCaptions = [
+                "My everything 💕",
+                "Forever yours 🌹",
+                "Beautiful moment ✨",
+                "My heart beats for you 💗",
+                "Endless love ♾️",
+                "You & me 💑",
+                "Precious memory 📸",
+                "My world 🌍",
+                "Soulmate 💫",
+                "Always & forever 💖",
+                "Dream come true 🌙",
+                "Love of my life ❤️",
+            ];
 
-        for (let y = 1.35; y >= -1.25; y -= step) {
-            for (let x = -1.45; x <= 1.45; x += step) {
-                const v = Math.pow(x * x + y * y - 1, 3) - x * x * Math.pow(y, 3);
-                if (v <= 0) {
-                    const px = 50 + x * 31;
-                    const py = 53 - y * 35;
-                    const centerBoost = 1 - Math.min(1, Math.hypot(x, y) / 1.55);
-                    points.push({ x: px, y: py, boost: centerBoost });
-                }
-            }
-        }
-
-        function makeHeart() {
-            const fragment = document.createDocumentFragment();
-
-            points.forEach((point, index) => {
-                const span = document.createElement("span");
-                span.className = "heart-word";
-                span.textContent = words[(index + Math.floor(point.x)) % words.length];
-
-                const delay = Math.random() * 900 + point.y * 4;
-                const hue = 336 + Math.random() * 15;
-                const light = 50 + point.boost * 34 + Math.random() * 8;
-                const opacity = 0.56 + point.boost * 0.42;
-                const rot = (Math.random() * 10 - 5).toFixed(2) + "deg";
-
-                span.style.setProperty("--x", point.x.toFixed(3));
-                span.style.setProperty("--y", point.y.toFixed(3));
-                span.style.setProperty("--delay", delay.toFixed(0));
-                span.style.setProperty("--hue", hue.toFixed(1));
-                span.style.setProperty("--light", light.toFixed(1) + "%");
-                span.style.setProperty("--opacity", opacity.toFixed(2));
-                span.style.setProperty("--rot", rot);
-                fragment.appendChild(span);
-            });
-
-            const center = document.createElement("div");
-            center.className = "center-text";
-            center.textContent = "Sayali, I love you ♾️❤️";
-            fragment.appendChild(center);
-
-            // Keep the existing open-heart-btn (it's already in the HTML inside heart-wrap)
-            // We need to make sure it stays. Since we're setting innerHTML = "",
-            // we need to re-append the button. Let's handle this differently.
-            // Actually, we'll preserve the button by not wiping it.
-            // Better approach: only remove heart-word and center-text elements,
-            // and keep the button.
-
-            // Remove only dynamically added elements (heart-word spans + center-text)
-            const existingWords = heart.querySelectorAll(".heart-word");
-            const existingCenter = heart.querySelector(".center-text");
-            existingWords.forEach(el => el.remove());
-            if (existingCenter) existingCenter.remove();
-
-            heart.appendChild(fragment);
-        }
-
-        function playAudio() {
-            if (audio) {
-                audio.play().catch(() => {});
-            }
-        }
-
-        function showHeart() {
-            makeHeart();
-            intro.classList.add("hide");
-            heart.classList.add("show");
-            playAudio();
-        }
-
-        // ── Build gallery cards ──
-        function buildGallery() {
-            galleryScroll.innerHTML = "";
-            photoUrls.forEach((url, index) => {
-                const card = document.createElement("div");
-                card.className = "gallery-card";
-                const img = document.createElement("img");
-                img.src = url;
-                img.alt = "Sayali photo " + (index + 1);
-                img.loading = "lazy";
-                img.onerror = function() {
-                    // If image fails to load, show a placeholder
-                    this.style.display = "none";
-                    card.style.display = "grid";
-                    card.style.placeItems = "center";
-                    card.style.color = "#ff7aa8";
-                    card.style.fontSize = "14px";
-                    card.textContent = "💔 Photo unavailable";
-                };
-                card.appendChild(img);
-                galleryScroll.appendChild(card);
-            });
-        }
-
-        // ── Open / Close gallery ──
-        function openGallery() {
-            buildGallery();
-            galleryOverlay.classList.add("active");
-            document.body.style.overflow = "hidden";
-            // Scroll to first card
-            galleryScroll.scrollLeft = 0;
-        }
-
-        function closeGallery() {
-            galleryOverlay.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-
-        // ── Scroll navigation ──
-        function getCardWidth() {
-            const card = galleryScroll.querySelector(".gallery-card");
-            if (!card) return 320;
-            const cardWidth = card.offsetWidth;
-            const gap = 22; // matches CSS gap
-            // On mobile gap is 14
-            const actualGap = window.innerWidth <= 520 ? 14 : 22;
-            return cardWidth + actualGap;
-        }
-
-        function scrollGallery(direction) {
-            const scrollAmount = getCardWidth();
-            galleryScroll.scrollBy({
-                left: direction * scrollAmount,
-                behavior: "smooth",
-            });
-        }
-
-        // ── Event listeners ──
-        startBtn.addEventListener("click", showHeart);
-
-        openHeartBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            openGallery();
-        });
-
-        galleryClose.addEventListener("click", closeGallery);
-
-        // Click backdrop to close
-        galleryOverlay.addEventListener("click", function(e) {
-            if (e.target === galleryOverlay) {
-                closeGallery();
-            }
-        });
-
-        galleryPrev.addEventListener("click", (e) => {
-            e.stopPropagation();
-            scrollGallery(-1);
-        });
-
-        galleryNext.addEventListener("click", (e) => {
-            e.stopPropagation();
-            scrollGallery(1);
-        });
-
-        // Keyboard navigation
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                if (!heart.classList.contains("show")) {
-                    showHeart();
-                    return;
+            // ── Heart words generation ──
+            const words = ["I love you", "love you", "forever", "my heart", "<3"];
+            const points = [];
+            const step = 0.105;
+            for (let y = 1.35; y >= -1.25; y -= step) {
+                for (let x = -1.45; x <= 1.45; x += step) {
+                    const v = Math.pow(x * x + y * y - 1, 3) - x * x * Math.pow(y, 3);
+                    if (v <= 0) {
+                        const px = 50 + x * 31;
+                        const py = 53 - y * 35;
+                        const centerBoost = 1 - Math.min(1, Math.hypot(x, y) / 1.55);
+                        points.push({ x: px, y: py, boost: centerBoost });
+                    }
                 }
             }
 
-            // Gallery keyboard controls
-            if (galleryOverlay.classList.contains("active")) {
-                if (event.key === "Escape") {
-                    closeGallery();
-                } else if (event.key === "ArrowLeft") {
-                    scrollGallery(-1);
-                } else if (event.key === "ArrowRight") {
-                    scrollGallery(1);
-                }
-            }
-        });
-
-        // Mouse move 3D tilt for the heart
-        window.addEventListener("mousemove", (event) => {
-            if (!heart.classList.contains("show")) return;
-            const x = (event.clientX / window.innerWidth - 0.5) * 10;
-            const y = (event.clientY / window.innerHeight - 0.5) * -8;
-            heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
-        });
-
-        // Convert vertical mouse wheel to horizontal scroll inside gallery
-        galleryScroll.addEventListener("wheel", (e) => {
-            // If the user is using a trackpad that already scrolls horizontally,
-            // deltaX will be non-zero. Only convert pure vertical scroll.
-            if (Math.abs(e.deltaX) < 1 && Math.abs(e.deltaY) > 0) {
-                e.preventDefault();
-                galleryScroll.scrollBy({
-                    left: e.deltaY * 1.8,
-                    behavior: "auto",
+            function makeHeart() {
+                const fragment = document.createDocumentFragment();
+                points.forEach((point, index) => {
+                    const span = document.createElement("span");
+                    span.className = "heart-word";
+                    span.textContent = words[(index + Math.floor(point.x)) % words.length];
+                    const delay = Math.random() * 900 + point.y * 4;
+                    const hue = 336 + Math.random() * 15;
+                    const light = 50 + point.boost * 34 + Math.random() * 8;
+                    const opacity = 0.56 + point.boost * 0.42;
+                    const rot = (Math.random() * 10 - 5).toFixed(2) + "deg";
+                    span.style.setProperty("--x", point.x.toFixed(3));
+                    span.style.setProperty("--y", point.y.toFixed(3));
+                    span.style.setProperty("--delay", delay.toFixed(0));
+                    span.style.setProperty("--hue", hue.toFixed(1));
+                    span.style.setProperty("--light", light.toFixed(1) + "%");
+                    span.style.setProperty("--opacity", opacity.toFixed(2));
+                    span.style.setProperty("--rot", rot);
+                    fragment.appendChild(span);
                 });
+                const center = document.createElement("div");
+                center.className = "center-text";
+                center.textContent = "Sayali, I love you ♾️❤️";
+                fragment.appendChild(center);
+
+                const existingWords = heart.querySelectorAll(".heart-word");
+                const existingCenter = heart.querySelector(".center-text");
+                existingWords.forEach(el => el.remove());
+                if (existingCenter) existingCenter.remove();
+                heart.appendChild(fragment);
             }
-        }, { passive: false });
 
-        // Touch swipe support (native with scroll-snap works already,
-        // but we enhance by making the gallery feel smooth)
-        let touchStartX = 0;
-        galleryScroll.addEventListener("touchstart", (e) => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
+            function playAudio() {
+                if (audio) audio.play().catch(() => {});
+            }
 
-        // ── Autoplay audio attempt on load ──
-        document.addEventListener("DOMContentLoaded", function() {
-            playAudio();
-        });
-
-        // Fallback: click anywhere to start audio if not already playing
-        document.addEventListener("click", function audioFallback() {
-            if (audio && audio.paused && !heart.classList.contains("show")) {
+            function showHeart() {
+                makeHeart();
+                intro.classList.add("hide");
+                heart.classList.add("show");
                 playAudio();
             }
-            document.removeEventListener("click", audioFallback);
-        }, { once: true });
 
-        // Build gallery cards on page load so they're ready
-        buildGallery();
+            // ── Auto-scroll state ──
+            const SCROLL_DURATION_MS = 180000; // 3 minutes
+            let autoScrollRAF = null;
+            let autoScrollActive = false;
+            let autoScrollPaused = false;
+            let scrollStartTime = 0;
+            let scrollStartPosition = 0;
+            let totalScrollDistance = 0;
+            let pausedAtPosition = 0;
+            let pausedElapsed = 0;
+            let userInteractTimeout = null;
+            const USER_INACTIVITY_DELAY = 3000; // resume after 3s of no user scroll
 
-        console.log("💖 All set! Click 'See the heart' then 'Open My Heart' to view the gallery.");
+            function getTotalScrollDistance() {
+                return Math.max(0, galleryScrollView.scrollHeight - galleryScrollView.clientHeight);
+            }
+
+            function updateProgress() {
+                const dist = getTotalScrollDistance();
+                if (dist <= 0) {
+                    progressFill.style.width = "0%";
+                    return;
+                }
+                const pct = Math.min(100, (galleryScrollView.scrollTop / dist) * 100);
+                progressFill.style.width = pct + "%";
+            }
+
+            function updateTimeDisplay(remainingSeconds) {
+                const mins = Math.floor(remainingSeconds / 60);
+                const secs = Math.floor(remainingSeconds % 60);
+                timeIndicator.textContent = mins + ":" + String(secs).padStart(2, "0");
+            }
+
+            function stopAutoScroll() {
+                if (autoScrollRAF) {
+                    cancelAnimationFrame(autoScrollRAF);
+                    autoScrollRAF = null;
+                }
+                autoScrollActive = false;
+                autoScrollPaused = false;
+                progressFill.classList.remove("paused");
+                playPauseBtn.textContent = "▶";
+                if (userInteractTimeout) {
+                    clearTimeout(userInteractTimeout);
+                    userInteractTimeout = null;
+                }
+            }
+
+            function startAutoScroll(fromPosition, elapsedAlready) {
+                stopAutoScroll();
+                totalScrollDistance = getTotalScrollDistance();
+                if (totalScrollDistance <= 1) {
+                    updateProgress();
+                    updateTimeDisplay(0);
+                    return;
+                }
+
+                scrollStartPosition = Math.min(fromPosition, totalScrollDistance);
+                scrollStartTime = performance.now() - (elapsedAlready || 0);
+                autoScrollActive = true;
+                autoScrollPaused = false;
+                progressFill.classList.remove("paused");
+                playPauseBtn.textContent = "⏸";
+
+                const speed = totalScrollDistance / SCROLL_DURATION_MS; // pixels per ms
+
+                function tick(now) {
+                    if (!autoScrollActive) return;
+                    if (autoScrollPaused) {
+                        autoScrollRAF = requestAnimationFrame(tick);
+                        return;
+                    }
+                    const elapsed = now - scrollStartTime;
+                    let targetPos = scrollStartPosition + speed * elapsed;
+                    targetPos = Math.min(targetPos, totalScrollDistance);
+                    galleryScrollView.scrollTop = targetPos;
+                    updateProgress();
+
+                    const remainingDistance = totalScrollDistance - targetPos;
+                    const remainingTime = speed > 0 ? remainingDistance / speed : 0;
+                    updateTimeDisplay(remainingTime / 1000);
+
+                    if (targetPos >= totalScrollDistance - 1) {
+                        // Reached the end
+                        stopAutoScroll();
+                        updateProgress();
+                        updateTimeDisplay(0);
+                        progressFill.style.width = "100%";
+                        playPauseBtn.textContent = "⟳";
+                        return;
+                    }
+                    autoScrollRAF = requestAnimationFrame(tick);
+                }
+
+                autoScrollRAF = requestAnimationFrame(tick);
+            }
+
+            function pauseAutoScroll() {
+                if (!autoScrollActive || autoScrollPaused) return;
+                autoScrollPaused = true;
+                pausedAtPosition = galleryScrollView.scrollTop;
+                pausedElapsed = performance.now() - scrollStartTime;
+                progressFill.classList.add("paused");
+                playPauseBtn.textContent = "▶";
+            }
+
+            function resumeAutoScroll() {
+                if (!autoScrollActive || !autoScrollPaused) return;
+                autoScrollPaused = false;
+                progressFill.classList.remove("paused");
+                playPauseBtn.textContent = "⏸";
+                // Restart from current position with adjusted timing
+                const currentPos = galleryScrollView.scrollTop;
+                const dist = getTotalScrollDistance();
+                if (dist <= 1) return;
+                const speed = dist / SCROLL_DURATION_MS;
+                const effectiveElapsed = (currentPos - scrollStartPosition) / speed;
+                scrollStartTime = performance.now() - Math.max(0, effectiveElapsed);
+                if (userInteractTimeout) clearTimeout(userInteractTimeout);
+                userInteractTimeout = null;
+            }
+
+            function togglePlayPause() {
+                if (!autoScrollActive) {
+                    // Start fresh
+                    const dist = getTotalScrollDistance();
+                    if (dist <= 1) return;
+                    const currentPos = galleryScrollView.scrollTop;
+                    const speed = dist / SCROLL_DURATION_MS;
+                    const effectiveElapsed = currentPos / speed;
+                    startAutoScroll(0, 0);
+                    galleryScrollView.scrollTop = currentPos;
+                    scrollStartPosition = 0;
+                    scrollStartTime = performance.now() - effectiveElapsed;
+                    return;
+                }
+                if (autoScrollPaused) {
+                    resumeAutoScroll();
+                } else {
+                    pauseAutoScroll();
+                }
+            }
+
+            function onUserScrollActivity() {
+                if (!autoScrollActive) return;
+                if (autoScrollPaused) {
+                    // Reset the inactivity timer
+                    if (userInteractTimeout) clearTimeout(userInteractTimeout);
+                    userInteractTimeout = setTimeout(() => {
+                        resumeAutoScroll();
+                    }, USER_INACTIVITY_DELAY);
+                    return;
+                }
+                // User scrolled while auto-scroll was active
+                pauseAutoScroll();
+                if (userInteractTimeout) clearTimeout(userInteractTimeout);
+                userInteractTimeout = setTimeout(() => {
+                    resumeAutoScroll();
+                }, USER_INACTIVITY_DELAY);
+            }
+
+            // ── Build gallery cards ──
+            function buildGalleryCards() {
+                galleryGrid.innerHTML = "";
+                photoUrls.forEach((url, index) => {
+                    const card = document.createElement("div");
+                    card.className = "gallery-card loading";
+                    card.setAttribute("data-index", index);
+
+                    const img = document.createElement("img");
+                    img.src = url;
+                    img.alt = "Sayali photo " + (index + 1);
+                    img.loading = "lazy";
+                    img.style.opacity = "0";
+                    img.style.transition = "opacity 0.4s ease";
+
+                    const caption = document.createElement("div");
+                    caption.className = "card-caption";
+                    caption.textContent = romanticCaptions[index % romanticCaptions.length];
+
+                    img.onload = function() {
+                        card.classList.remove("loading");
+                        img.style.opacity = "1";
+                        const ratio = this.naturalWidth / this.naturalHeight;
+                        if (ratio > 1.25) {
+                            card.classList.add("landscape");
+                            card.style.aspectRatio = "4 / 3";
+                        } else if (ratio < 0.85) {
+                            card.style.aspectRatio = "3 / 4";
+                        } else {
+                            card.classList.add("square-ish");
+                            card.style.aspectRatio = "1 / 1";
+                        }
+                    };
+
+                    img.onerror = function() {
+                        card.classList.remove("loading");
+                        card.style.display = "grid";
+                        card.style.placeItems = "center";
+                        card.style.color = "#ff7aa8";
+                        card.style.fontSize = "13px";
+                        card.style.aspectRatio = "3/4";
+                        card.textContent = "💔";
+                        caption.textContent = "Photo " + (index + 1);
+                        card.appendChild(caption);
+                    };
+
+                    card.appendChild(img);
+                    card.appendChild(caption);
+                    galleryGrid.appendChild(card);
+                });
+
+                // Also check already-cached images
+                setTimeout(() => {
+                    galleryGrid.querySelectorAll("img").forEach(img => {
+                        if (img.complete && img.naturalWidth > 0) {
+                            const card = img.closest(".gallery-card");
+                            if (card && card.classList.contains("loading")) {
+                                card.classList.remove("loading");
+                                img.style.opacity = "1";
+                                const ratio = img.naturalWidth / img.naturalHeight;
+                                if (ratio > 1.25) {
+                                    card.classList.add("landscape");
+                                    card.style.aspectRatio = "4 / 3";
+                                } else if (ratio < 0.85) {
+                                    card.style.aspectRatio = "3 / 4";
+                                } else {
+                                    card.classList.add("square-ish");
+                                    card.style.aspectRatio = "1 / 1";
+                                }
+                            }
+                        }
+                    });
+                }, 300);
+            }
+
+            // ── Open / Close gallery ──
+            function openGallery() {
+                buildGalleryCards();
+                galleryOverlay.classList.add("active");
+                document.body.style.overflow = "hidden";
+                galleryScrollView.scrollTop = 0;
+                updateProgress();
+                updateTimeDisplay(180);
+                stopAutoScroll();
+                progressFill.style.width = "0%";
+                playPauseBtn.textContent = "⏯";
+
+                // Small delay then start auto-scroll
+                setTimeout(() => {
+                    const dist = getTotalScrollDistance();
+                    if (dist > 1) {
+                        startAutoScroll(0, 0);
+                    }
+                }, 1800);
+            }
+
+            function closeGallery() {
+                stopAutoScroll();
+                galleryOverlay.classList.remove("active");
+                document.body.style.overflow = "";
+                if (userInteractTimeout) {
+                    clearTimeout(userInteractTimeout);
+                    userInteractTimeout = null;
+                }
+            }
+
+            // ── Progress track click to seek ──
+            progressTrack.addEventListener("click", function(e) {
+                const rect = this.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const fraction = Math.max(0, Math.min(1, clickX / rect.width));
+                const dist = getTotalScrollDistance();
+                const targetScroll = fraction * dist;
+                galleryScrollView.scrollTop = targetScroll;
+                updateProgress();
+
+                if (autoScrollActive) {
+                    pauseAutoScroll();
+                    if (userInteractTimeout) clearTimeout(userInteractTimeout);
+                    userInteractTimeout = setTimeout(() => {
+                        resumeAutoScroll();
+                    }, USER_INACTIVITY_DELAY);
+                }
+
+                const remainingDist = dist - targetScroll;
+                const speed = dist / SCROLL_DURATION_MS;
+                const remainingTime = speed > 0 ? remainingDist / speed : 0;
+                updateTimeDisplay(remainingTime / 1000);
+            });
+
+            // ── Event listeners ──
+            startBtn.addEventListener("click", showHeart);
+            openHeartBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openGallery();
+            });
+            galleryClose.addEventListener("click", closeGallery);
+            galleryOverlay.addEventListener("click", function(e) {
+                if (e.target === galleryOverlay) closeGallery();
+            });
+            playPauseBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                // If scroll completed (button shows ⟳), restart
+                if (playPauseBtn.textContent === "⟳") {
+                    galleryScrollView.scrollTop = 0;
+                    updateProgress();
+                    const dist = getTotalScrollDistance();
+                    if (dist > 1) {
+                        startAutoScroll(0, 0);
+                    }
+                    return;
+                }
+                togglePlayPause();
+            });
+
+            // Scroll event on the gallery scroll view
+            galleryScrollView.addEventListener("scroll", function() {
+                updateProgress();
+                if (autoScrollActive && !autoScrollPaused) {
+                    // Check if this scroll event was triggered by our own RAF
+                    // We use a flag, but simpler: if the difference between
+                    // expected position and actual is large, user intervened.
+                    const dist = getTotalScrollDistance();
+                    if (dist <= 1) return;
+                    const speed = dist / SCROLL_DURATION_MS;
+                    const elapsed = performance.now() - scrollStartTime;
+                    const expectedPos = scrollStartPosition + speed * elapsed;
+                    const actualPos = galleryScrollView.scrollTop;
+                    const threshold = Math.max(8, dist * 0.015);
+                    if (Math.abs(actualPos - expectedPos) > threshold) {
+                        onUserScrollActivity();
+                    }
+                }
+            }, { passive: true });
+
+            // Wheel event for manual scroll detection
+            galleryScrollView.addEventListener("wheel", function() {
+                if (autoScrollActive && !autoScrollPaused) {
+                    onUserScrollActivity();
+                }
+            }, { passive: true });
+
+            // Touch events
+            galleryScrollView.addEventListener("touchstart", function() {
+                if (autoScrollActive && !autoScrollPaused) {
+                    onUserScrollActivity();
+                }
+            }, { passive: true });
+
+            // Keyboard controls
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    if (!heart.classList.contains("show")) {
+                        showHeart();
+                        return;
+                    }
+                }
+                if (galleryOverlay.classList.contains("active")) {
+                    if (event.key === "Escape") {
+                        closeGallery();
+                    } else if (event.key === " " && event.target === document.body) {
+                        event.preventDefault();
+                        togglePlayPause();
+                    } else if (event.key === "ArrowDown" && autoScrollActive && !autoScrollPaused) {
+                        onUserScrollActivity();
+                    } else if (event.key === "ArrowUp" && autoScrollActive && !autoScrollPaused) {
+                        onUserScrollActivity();
+                    }
+                }
+            });
+
+            // Mouse move 3D tilt for the heart
+            window.addEventListener("mousemove", function(event) {
+                if (!heart.classList.contains("show")) return;
+                const x = (event.clientX / window.innerWidth - 0.5) * 10;
+                const y = (event.clientY / window.innerHeight - 0.5) * -8;
+                heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+
+            // Autoplay audio
+            document.addEventListener("DOMContentLoaded", function() {
+                playAudio();
+            });
+            document.addEventListener("click", function audioFallback() {
+                if (audio && audio.paused && !heart.classList.contains("show")) {
+                    playAudio();
+                }
+                document.removeEventListener("click", audioFallback);
+            }, { once: true });
+
+            // Build gallery on load
+            buildGalleryCards();
+
+            console.log("💖 All set! Click 'See the heart' then 'Open My Heart' for the cinematic gallery.");
+        })();
     </script>
 </body>
 </html>
