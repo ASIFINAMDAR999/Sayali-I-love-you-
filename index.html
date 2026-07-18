@@ -1,347 +1,806 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- Pure black browser toolbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- Safari iOS pure black status bar -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Click below button to see asif heart </title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='35%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%23ff9abb'/%3E%3Cstop offset='45%25' stop-color='%23ff2d75'/%3E%3Cstop offset='100%25' stop-color='%23b8003d'/%3E%3C/radialGradient%3E%3Cfilter id='s' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeDropShadow dx='0' dy='4' stdDeviation='4' flood-color='%23ff2d75' flood-opacity='.55'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050508'/%3E%3Cpath filter='url(%23s)' fill='url(%23g)' d='M32 54S9 40.5 9 23.8C9 15.6 15.1 10 22.2 10c4.4 0 7.8 2 9.8 5.1C34 12 37.4 10 41.8 10 48.9 10 55 15.6 55 23.8 55 40.5 32 54 32 54Z'/%3E%3C/svg%3E" />
-  <style>
-    :root {
-      --bg: #050508;
-      --pink: #ff2d75;
-      --pink-soft: #ff7aa8;
-      --red: #ff174f;
-      --white: #fff7fb;
-    }
+    <!-- Pure black browser toolbar -->
+    <meta name="theme-color" content="#000000" />
+    <!-- Safari iOS pure black status bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <title>Click below button to see asif heart</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='35%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%23ff9abb'/%3E%3Cstop offset='45%25' stop-color='%23ff2d75'/%3E%3Cstop offset='100%25' stop-color='%23b8003d'/%3E%3C/radialGradient%3E%3Cfilter id='s' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeDropShadow dx='0' dy='4' stdDeviation='4' flood-color='%23ff2d75' flood-opacity='.55'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050508'/%3E%3Cpath filter='url(%23s)' fill='url(%23g)' d='M32 54S9 40.5 9 23.8C9 15.6 15.1 10 22.2 10c4.4 0 7.8 2 9.8 5.1C34 12 37.4 10 41.8 10 48.9 10 55 15.6 55 23.8 55 40.5 32 54 32 54Z'/%3E%3C/svg%3E" />
+    <style>
+        :root {
+            --bg: #050508;
+            --pink: #ff2d75;
+            --pink-soft: #ff7aa8;
+            --red: #ff174f;
+            --white: #fff7fb;
+        }
 
-    body {
-      min-height: 100vh;
-      overflow: hidden;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--white);
-      background:
-        radial-gradient(circle at 50% 45%, rgba(255, 45, 117, 0.16), transparent 34%),
-        radial-gradient(circle at 50% 74%, rgba(255, 0, 80, 0.2), transparent 26%),
-        linear-gradient(180deg, #09090f, var(--bg));
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .stage {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      perspective: 900px;
-      padding: 24px 18px;
-    }
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--white);
+            background:
+                radial-gradient(circle at 50% 45%, rgba(255, 45, 117, 0.16), transparent 34%),
+                radial-gradient(circle at 50% 74%, rgba(255, 0, 80, 0.2), transparent 26%),
+                linear-gradient(180deg, #09090f, var(--bg));
+        }
 
-    .intro {
-      text-align: center;
-      z-index: 8;
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
+        .stage {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            perspective: 900px;
+            padding: 24px 18px;
+            position: relative;
+        }
 
-    .intro.hide {
-      opacity: 0;
-      transform: translateY(16px) scale(0.96);
-      pointer-events: none;
-    }
+        .intro {
+            text-align: center;
+            z-index: 8;
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
 
-    .main-title {
-      font-size: clamp(34px, 7vw, 70px);
-      font-weight: 900;
-      line-height: 1;
-      text-shadow: 0 0 28px rgba(255, 45, 117, 0.7);
-    }
+        .intro.hide {
+            opacity: 0;
+            transform: translateY(16px) scale(0.96);
+            pointer-events: none;
+        }
 
-    .log {
-      margin: 22px auto 0;
-      width: min(560px, 92vw);
-      text-align: left;
-      font-family: "Cascadia Code", Consolas, monospace;
-      font-size: clamp(11px, 2vw, 13px);
-      color: rgba(255, 122, 168, 0.9);
-      line-height: 1.7;
-    }
+        .main-title {
+            font-size: clamp(34px, 7vw, 70px);
+            font-weight: 900;
+            line-height: 1;
+            text-shadow: 0 0 28px rgba(255, 45, 117, 0.7);
+        }
 
-    .log-line {
-      opacity: 0;
-      transform: translateY(8px);
-      animation: lineIn 0.45s ease forwards;
-    }
+        .log {
+            margin: 22px auto 0;
+            width: min(560px, 92vw);
+            text-align: left;
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: clamp(11px, 2vw, 13px);
+            color: rgba(255, 122, 168, 0.9);
+            line-height: 1.7;
+        }
 
-    .log-line:nth-child(2) { animation-delay: 0.45s; }
-    .log-line:nth-child(3) { animation-delay: 0.9s; }
-    .log-line:nth-child(4) { animation-delay: 1.35s; }
+        .log-line {
+            opacity: 0;
+            transform: translateY(8px);
+            animation: lineIn 0.45s ease forwards;
+        }
 
-    @keyframes lineIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .log-line:nth-child(2) {
+            animation-delay: 0.45s;
+        }
+        .log-line:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+        .log-line:nth-child(4) {
+            animation-delay: 1.35s;
+        }
 
-    .button {
-      margin-top: 22px;
-      border: 0;
-      border-radius: 10px;
-      padding: 13px 24px;
-      color: white;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      background: linear-gradient(135deg, #ff2d75, #b8003d);
-      box-shadow: 0 12px 38px rgba(255, 45, 117, 0.36);
-      opacity: 0;
-      transform: translateY(10px);
-      animation: buttonIn 0.45s ease forwards 2s;
-    }
+        @keyframes lineIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
-    }
+        .button {
+            margin-top: 22px;
+            border: 0;
+            border-radius: 10px;
+            padding: 13px 24px;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff2d75, #b8003d);
+            box-shadow: 0 12px 38px rgba(255, 45, 117, 0.36);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: buttonIn 0.45s ease forwards 2s;
+        }
 
-    @keyframes buttonIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
 
-    .heart-wrap {
-      position: absolute;
-      width: min(92vw, 760px);
-      aspect-ratio: 1 / 0.9;
-      transform-style: preserve-3d;
-      opacity: 0;
-      pointer-events: none;
-    }
+        @keyframes buttonIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .heart-wrap.show {
-      opacity: 1;
-      animation: heartAppear 1.1s ease forwards, beat 1.7s ease-in-out infinite 1.2s;
-    }
+        .heart-wrap {
+            position: absolute;
+            width: min(92vw, 760px);
+            aspect-ratio: 1 / 0.9;
+            transform-style: preserve-3d;
+            opacity: 0;
+            pointer-events: none;
+        }
 
-    @keyframes heartAppear {
-      from {
-        transform: rotateX(18deg) scale(0.72);
-        filter: blur(6px);
-      }
-      to {
-        transform: rotateX(0deg) scale(1);
-        filter: blur(0);
-      }
-    }
+        .heart-wrap.show {
+            opacity: 1;
+            pointer-events: auto;
+            animation: heartAppear 1.1s ease forwards, beat 1.7s ease-in-out infinite 1.2s;
+        }
 
-    @keyframes beat {
-      0%, 100% { scale: 1; }
-      14% { scale: 1.035; }
-      28% { scale: 1; }
-      42% { scale: 1.025; }
-      70% { scale: 1; }
-    }
+        @keyframes heartAppear {
+            from {
+                transform: rotateX(18deg) scale(0.72);
+                filter: blur(6px);
+            }
+            to {
+                transform: rotateX(0deg) scale(1);
+                filter: blur(0);
+            }
+        }
 
-    .heart-word {
-      position: absolute;
-      left: calc(var(--x) * 1%);
-      top: calc(var(--y) * 1%);
-      font-family: "Cascadia Code", Consolas, monospace;
-      font-size: clamp(7px, 1.3vw, 13px);
-      white-space: nowrap;
-      color: hsl(var(--hue), 100%, var(--light));
-      text-shadow:
-        0 0 7px rgba(255, 45, 117, 0.85),
-        0 0 18px rgba(255, 45, 117, 0.5);
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.2) rotate(var(--rot));
-      animation: wordIn 0.75s cubic-bezier(.2,.9,.2,1.15) forwards;
-      animation-delay: calc(var(--delay) * 1ms);
-    }
+        @keyframes beat {
+            0%,
+            100% {
+                scale: 1;
+            }
+            14% {
+                scale: 1.035;
+            }
+            28% {
+                scale: 1;
+            }
+            42% {
+                scale: 1.025;
+            }
+            70% {
+                scale: 1;
+            }
+        }
 
-    @keyframes wordIn {
-      to {
-        opacity: var(--opacity);
-        transform: translate(-50%, -50%) scale(1) rotate(var(--rot));
-      }
-    }
+        .heart-word {
+            position: absolute;
+            left: calc(var(--x) * 1%);
+            top: calc(var(--y) * 1%);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: clamp(7px, 1.3vw, 13px);
+            white-space: nowrap;
+            color: hsl(var(--hue), 100%, var(--light));
+            text-shadow:
+                0 0 7px rgba(255, 45, 117, 0.85),
+                0 0 18px rgba(255, 45, 117, 0.5);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.2) rotate(var(--rot));
+            animation: wordIn 0.75s cubic-bezier(.2, .9, .2, 1.15) forwards;
+            animation-delay: calc(var(--delay) * 1ms);
+        }
 
-    .center-text {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-size: clamp(34px, 7vw, 72px);
-      font-weight: 950;
-      text-align: center;
-      color: white;
-      text-shadow:
-        0 0 22px rgba(255, 255, 255, 0.5),
-        0 0 46px rgba(255, 45, 117, 0.9);
-      opacity: 0;
-      transform: scale(0.9);
-      animation: centerIn 0.8s ease forwards 1.15s;
-      pointer-events: none;
-    }
+        @keyframes wordIn {
+            to {
+                opacity: var(--opacity);
+                transform: translate(-50%, -50%) scale(1) rotate(var(--rot));
+            }
+        }
 
-    @keyframes centerIn {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+        .center-text {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: clamp(34px, 7vw, 72px);
+            font-weight: 950;
+            text-align: center;
+            color: white;
+            text-shadow:
+                0 0 22px rgba(255, 255, 255, 0.5),
+                0 0 46px rgba(255, 45, 117, 0.9);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: centerIn 0.8s ease forwards 1.15s;
+            pointer-events: none;
+        }
 
-    .glow {
-      position: fixed;
-      left: 50%;
-      bottom: 6%;
-      width: min(640px, 90vw);
-      height: 110px;
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse, rgba(255, 45, 117, 0.34), transparent 65%);
-      filter: blur(18px);
-      pointer-events: none;
-      opacity: 0.85;
-    }
+        @keyframes centerIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-    @media (max-width: 520px) {
-      .heart-wrap {
-        width: 106vw;
-      }
+        /* ── Open My Heart button ── */
+        .open-heart-btn {
+            position: absolute;
+            bottom: -52px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid rgba(255, 45, 117, 0.55);
+            border-radius: 30px;
+            padding: 14px 30px;
+            background: rgba(10, 4, 12, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #fff;
+            font-size: clamp(13px, 1.6vw, 16px);
+            font-weight: 700;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            letter-spacing: 1.2px;
+            white-space: nowrap;
+            transition: all 0.35s ease;
+            box-shadow: 0 0 24px rgba(255, 45, 117, 0.25);
+        }
 
-      .heart-word {
-        font-size: 7px;
-      }
-    }
-  </style>
+        .heart-wrap.show .open-heart-btn {
+            animation: btnReveal 0.7s ease forwards 2.8s;
+            pointer-events: auto;
+        }
+
+        @keyframes btnReveal {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .open-heart-btn:hover {
+            background: rgba(255, 45, 117, 0.22);
+            border-color: rgba(255, 122, 168, 0.9);
+            box-shadow: 0 0 38px rgba(255, 45, 117, 0.55), 0 0 70px rgba(255, 45, 117, 0.2);
+            transform: translateX(-50%) scale(1.06);
+        }
+
+        /* ── Pulse on the button after it appears ── */
+        .heart-wrap.show .open-heart-btn {
+            animation: btnReveal 0.7s ease forwards 2.8s, btnPulse 2.4s ease-in-out infinite 3.6s;
+        }
+
+        @keyframes btnPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 24px rgba(255, 45, 117, 0.25);
+            }
+            50% {
+                box-shadow: 0 0 44px rgba(255, 45, 117, 0.7), 0 0 72px rgba(255, 45, 117, 0.3);
+            }
+        }
+
+        /* ── Gallery overlay ── */
+        .gallery-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(2, 2, 8, 0.88);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            padding: 16px;
+        }
+
+        .gallery-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-content {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: -10px;
+            right: -4px;
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 45, 117, 0.5);
+            background: rgba(10, 4, 14, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .gallery-close:hover {
+            background: rgba(255, 45, 117, 0.3);
+            border-color: #ff7aa8;
+            box-shadow: 0 0 28px rgba(255, 45, 117, 0.55);
+            transform: scale(1.08);
+        }
+
+        .gallery-title {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 18px rgba(255, 45, 117, 0.7);
+            letter-spacing: 1px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 8px 16px;
+            width: 100%;
+            align-items: center;
+            /* hide scrollbar but keep functionality */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 45, 117, 0.35) transparent;
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 45, 117, 0.4);
+            border-radius: 10px;
+        }
+
+        .gallery-card {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            width: clamp(260px, 52vw, 420px);
+            aspect-ratio: 3 / 4;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 45, 117, 0.35);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 45, 117, 0.2);
+            background: #0a0a12;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 122, 168, 0.7);
+            box-shadow: 0 14px 50px rgba(0, 0, 0, 0.6), 0 0 44px rgba(255, 45, 117, 0.35);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ── Navigation arrows ── */
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 45, 117, 0.5);
+            background: rgba(10, 4, 14, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(255, 45, 117, 0.28);
+            border-color: #ff7aa8;
+            box-shadow: 0 0 30px rgba(255, 45, 117, 0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-prev {
+            left: -20px;
+        }
+        .gallery-next {
+            right: -20px;
+        }
+
+        /* ── Glow at bottom ── */
+        .glow {
+            position: fixed;
+            left: 50%;
+            bottom: 6%;
+            width: min(640px, 90vw);
+            height: 110px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse, rgba(255, 45, 117, 0.34), transparent 65%);
+            filter: blur(18px);
+            pointer-events: none;
+            opacity: 0.85;
+            z-index: 1;
+        }
+
+        @media (max-width: 520px) {
+            .heart-wrap {
+                width: 106vw;
+            }
+
+            .heart-word {
+                font-size: 7px;
+            }
+
+            .open-heart-btn {
+                bottom: -38px;
+                padding: 12px 22px;
+                font-size: 12px;
+                letter-spacing: 0.8px;
+            }
+
+            .gallery-card {
+                width: 78vw;
+                border-radius: 16px;
+            }
+
+            .gallery-arrow {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+            .gallery-prev {
+                left: -8px;
+            }
+            .gallery-next {
+                right: -8px;
+            }
+
+            .gallery-close {
+                width: 38px;
+                height: 38px;
+                font-size: 17px;
+                top: -6px;
+                right: 0px;
+            }
+
+            .gallery-scroll {
+                gap: 14px;
+                padding: 6px 4px 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="stage" id="stage">
-    <section class="intro" id="intro">
-      <h1 class="main-title">Click below button to see asif heart</h1>
-      <div class="log">
-        <div class="log-line">[system] Initializing HEART_PROTOCOL_v2.0...</div>
-        <div class="log-line">[status] Loading memory fragments...</div>
-        <div class="log-line">[fonts] Preloading custom heart font for you...</div>
-        <div class="log-line">[ready] One message is waiting.</div>
-      </div>
-      <button class="button" id="startBtn">See the heart </button>
-    </section>
+    <main class="stage" id="stage">
+        <section class="intro" id="intro">
+            <h1 class="main-title">Click below button to see asif heart</h1>
+            <div class="log">
+                <div class="log-line">[system] Initializing HEART_PROTOCOL_v2.0...</div>
+                <div class="log-line">[status] Loading memory fragments...</div>
+                <div class="log-line">[fonts] Preloading custom heart font for you...</div>
+                <div class="log-line">[ready] One message is waiting.</div>
+            </div>
+            <button class="button" id="startBtn">See the heart ❤️</button>
+        </section>
 
-    <section class="heart-wrap" id="heart"></section>
-    <div class="glow"></div>
-  </main>
+        <section class="heart-wrap" id="heart">
+            <!-- Heart words + center text injected by JS -->
+            <!-- Open My Heart button appears below the heart -->
+            <button class="open-heart-btn" id="openHeartBtn">💖 Open My Heart 💖</button>
+        </section>
+        <div class="glow"></div>
+    </main>
 
-  <!-- Background music -->
-  <audio id="bgMusic" preload="auto" loop style="display:none;">
-    <source src="Hey There Delilah.mp3" type="audio/mpeg">
-  </audio>
+    <!-- ── Gallery overlay ── -->
+    <div class="gallery-overlay" id="galleryOverlay">
+        <div class="gallery-content" id="galleryContent">
+            <button class="gallery-close" id="galleryClose" aria-label="Close gallery">✕</button>
+            <p class="gallery-title">💖 My Heart, My Sayali 💖</p>
+            <div class="gallery-scroll" id="galleryScroll">
+                <!-- Image cards injected by JS -->
+            </div>
+            <button class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Previous photo">❮</button>
+            <button class="gallery-arrow gallery-next" id="galleryNext" aria-label="Next photo">❯</button>
+        </div>
+    </div>
 
-  <script>
-    const heart = document.getElementById("heart");
-    const intro = document.getElementById("intro");
-    const startBtn = document.getElementById("startBtn");
-    const stage = document.getElementById("stage");
-    const audio = document.getElementById("bgMusic");
+    <!-- Background music -->
+    <audio id="bgMusic" preload="auto" loop style="display:none;">
+        <source src="Hey There Delilah.mp3" type="audio/mpeg">
+    </audio>
 
-    const words = ["I love you", "love you", "forever", "my heart", "<3"];
-    const points = [];
-    const step = 0.105;
+    <script>
+        const heart = document.getElementById("heart");
+        const intro = document.getElementById("intro");
+        const startBtn = document.getElementById("startBtn");
+        const stage = document.getElementById("stage");
+        const audio = document.getElementById("bgMusic");
+        const openHeartBtn = document.getElementById("openHeartBtn");
+        const galleryOverlay = document.getElementById("galleryOverlay");
+        const galleryScroll = document.getElementById("galleryScroll");
+        const galleryClose = document.getElementById("galleryClose");
+        const galleryPrev = document.getElementById("galleryPrev");
+        const galleryNext = document.getElementById("galleryNext");
+        const galleryContent = document.getElementById("galleryContent");
 
-    for (let y = 1.35; y >= -1.25; y -= step) {
-      for (let x = -1.45; x <= 1.45; x += step) {
-        const v = Math.pow(x * x + y * y - 1, 3) - x * x * Math.pow(y, 3);
-        if (v <= 0) {
-          const px = 50 + x * 31;
-          const py = 53 - y * 35;
-          const centerBoost = 1 - Math.min(1, Math.hypot(x, y) / 1.55);
-          points.push({ x: px, y: py, boost: centerBoost });
+        // ── Supabase image URLs ──
+        const photoUrls = [
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/6BE1C9FA-6CA5-47B5-9987-428189A35FFF.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0005_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG-20240314-WA0010_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3381.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_3389.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/IMG_4268.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532842_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052532868_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546651_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052546662_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549757_Original.jpeg",
+            "https://lmfxlwbzllorzbtyowce.supabase.co/storage/v1/object/public/Sayali/secret.bo_x_14031004_052549771_Original.jpeg",
+        ];
+
+        // ── Build heart words ──
+        const words = ["I love you", "love you", "forever", "my heart", "<3"];
+        const points = [];
+        const step = 0.105;
+
+        for (let y = 1.35; y >= -1.25; y -= step) {
+            for (let x = -1.45; x <= 1.45; x += step) {
+                const v = Math.pow(x * x + y * y - 1, 3) - x * x * Math.pow(y, 3);
+                if (v <= 0) {
+                    const px = 50 + x * 31;
+                    const py = 53 - y * 35;
+                    const centerBoost = 1 - Math.min(1, Math.hypot(x, y) / 1.55);
+                    points.push({ x: px, y: py, boost: centerBoost });
+                }
+            }
         }
-      }
-    }
 
-    function makeHeart() {
-      const fragment = document.createDocumentFragment();
+        function makeHeart() {
+            const fragment = document.createDocumentFragment();
 
-      points.forEach((point, index) => {
-        const span = document.createElement("span");
-        span.className = "heart-word";
-        span.textContent = words[(index + Math.floor(point.x)) % words.length];
+            points.forEach((point, index) => {
+                const span = document.createElement("span");
+                span.className = "heart-word";
+                span.textContent = words[(index + Math.floor(point.x)) % words.length];
 
-        const delay = Math.random() * 900 + point.y * 4;
-        const hue = 336 + Math.random() * 15;
-        const light = 50 + point.boost * 34 + Math.random() * 8;
-        const opacity = 0.56 + point.boost * 0.42;
-        const rot = (Math.random() * 10 - 5).toFixed(2) + "deg";
+                const delay = Math.random() * 900 + point.y * 4;
+                const hue = 336 + Math.random() * 15;
+                const light = 50 + point.boost * 34 + Math.random() * 8;
+                const opacity = 0.56 + point.boost * 0.42;
+                const rot = (Math.random() * 10 - 5).toFixed(2) + "deg";
 
-        span.style.setProperty("--x", point.x.toFixed(3));
-        span.style.setProperty("--y", point.y.toFixed(3));
-        span.style.setProperty("--delay", delay.toFixed(0));
-        span.style.setProperty("--hue", hue.toFixed(1));
-        span.style.setProperty("--light", light.toFixed(1) + "%");
-        span.style.setProperty("--opacity", opacity.toFixed(2));
-        span.style.setProperty("--rot", rot);
-        fragment.appendChild(span);
-      });
+                span.style.setProperty("--x", point.x.toFixed(3));
+                span.style.setProperty("--y", point.y.toFixed(3));
+                span.style.setProperty("--delay", delay.toFixed(0));
+                span.style.setProperty("--hue", hue.toFixed(1));
+                span.style.setProperty("--light", light.toFixed(1) + "%");
+                span.style.setProperty("--opacity", opacity.toFixed(2));
+                span.style.setProperty("--rot", rot);
+                fragment.appendChild(span);
+            });
 
-      const center = document.createElement("div");
-      center.className = "center-text";
-      center.textContent = "Sayali, I love you ♾️❤️";
-      fragment.appendChild(center);
+            const center = document.createElement("div");
+            center.className = "center-text";
+            center.textContent = "Sayali, I love you ♾️❤️";
+            fragment.appendChild(center);
 
-      heart.innerHTML = "";
-      heart.appendChild(fragment);
-    }
+            // Keep the existing open-heart-btn (it's already in the HTML inside heart-wrap)
+            // We need to make sure it stays. Since we're setting innerHTML = "",
+            // we need to re-append the button. Let's handle this differently.
+            // Actually, we'll preserve the button by not wiping it.
+            // Better approach: only remove heart-word and center-text elements,
+            // and keep the button.
 
-    function playAudio() {
-      if (audio) {
-        audio.play().catch(() => {});
-      }
-    }
+            // Remove only dynamically added elements (heart-word spans + center-text)
+            const existingWords = heart.querySelectorAll(".heart-word");
+            const existingCenter = heart.querySelector(".center-text");
+            existingWords.forEach(el => el.remove());
+            if (existingCenter) existingCenter.remove();
 
-    function showHeart() {
-      makeHeart();
-      intro.classList.add("hide");
-      heart.classList.add("show");
-      // start music on button click
-      playAudio();
-    }
+            heart.appendChild(fragment);
+        }
 
-    startBtn.addEventListener("click", showHeart);
+        function playAudio() {
+            if (audio) {
+                audio.play().catch(() => {});
+            }
+        }
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") showHeart();
-    });
+        function showHeart() {
+            makeHeart();
+            intro.classList.add("hide");
+            heart.classList.add("show");
+            playAudio();
+        }
 
-    window.addEventListener("mousemove", (event) => {
-      if (!heart.classList.contains("show")) return;
-      const x = (event.clientX / window.innerWidth - 0.5) * 10;
-      const y = (event.clientY / window.innerHeight - 0.5) * -8;
-      heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
-    });
+        // ── Build gallery cards ──
+        function buildGallery() {
+            galleryScroll.innerHTML = "";
+            photoUrls.forEach((url, index) => {
+                const card = document.createElement("div");
+                card.className = "gallery-card";
+                const img = document.createElement("img");
+                img.src = url;
+                img.alt = "Sayali photo " + (index + 1);
+                img.loading = "lazy";
+                img.onerror = function() {
+                    // If image fails to load, show a placeholder
+                    this.style.display = "none";
+                    card.style.display = "grid";
+                    card.style.placeItems = "center";
+                    card.style.color = "#ff7aa8";
+                    card.style.fontSize = "14px";
+                    card.textContent = "💔 Photo unavailable";
+                };
+                card.appendChild(img);
+                galleryScroll.appendChild(card);
+            });
+        }
 
-    // Try to autoplay when page loads (may be blocked)
-    document.addEventListener("DOMContentLoaded", function() {
-      playAudio();
-    });
+        // ── Open / Close gallery ──
+        function openGallery() {
+            buildGallery();
+            galleryOverlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+            // Scroll to first card
+            galleryScroll.scrollLeft = 0;
+        }
 
-    // Fallback: if user clicks anywhere and audio hasn't started, start it
-    document.addEventListener("click", function audioFallback() {
-      if (audio && audio.paused && !heart.classList.contains("show")) {
-        playAudio();
-      }
-      document.removeEventListener("click", audioFallback);
-    }, { once: true });
-  </script>
+        function closeGallery() {
+            galleryOverlay.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        // ── Scroll navigation ──
+        function getCardWidth() {
+            const card = galleryScroll.querySelector(".gallery-card");
+            if (!card) return 320;
+            const cardWidth = card.offsetWidth;
+            const gap = 22; // matches CSS gap
+            // On mobile gap is 14
+            const actualGap = window.innerWidth <= 520 ? 14 : 22;
+            return cardWidth + actualGap;
+        }
+
+        function scrollGallery(direction) {
+            const scrollAmount = getCardWidth();
+            galleryScroll.scrollBy({
+                left: direction * scrollAmount,
+                behavior: "smooth",
+            });
+        }
+
+        // ── Event listeners ──
+        startBtn.addEventListener("click", showHeart);
+
+        openHeartBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openGallery();
+        });
+
+        galleryClose.addEventListener("click", closeGallery);
+
+        // Click backdrop to close
+        galleryOverlay.addEventListener("click", function(e) {
+            if (e.target === galleryOverlay) {
+                closeGallery();
+            }
+        });
+
+        galleryPrev.addEventListener("click", (e) => {
+            e.stopPropagation();
+            scrollGallery(-1);
+        });
+
+        galleryNext.addEventListener("click", (e) => {
+            e.stopPropagation();
+            scrollGallery(1);
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                if (!heart.classList.contains("show")) {
+                    showHeart();
+                    return;
+                }
+            }
+
+            // Gallery keyboard controls
+            if (galleryOverlay.classList.contains("active")) {
+                if (event.key === "Escape") {
+                    closeGallery();
+                } else if (event.key === "ArrowLeft") {
+                    scrollGallery(-1);
+                } else if (event.key === "ArrowRight") {
+                    scrollGallery(1);
+                }
+            }
+        });
+
+        // Mouse move 3D tilt for the heart
+        window.addEventListener("mousemove", (event) => {
+            if (!heart.classList.contains("show")) return;
+            const x = (event.clientX / window.innerWidth - 0.5) * 10;
+            const y = (event.clientY / window.innerHeight - 0.5) * -8;
+            heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+
+        // Convert vertical mouse wheel to horizontal scroll inside gallery
+        galleryScroll.addEventListener("wheel", (e) => {
+            // If the user is using a trackpad that already scrolls horizontally,
+            // deltaX will be non-zero. Only convert pure vertical scroll.
+            if (Math.abs(e.deltaX) < 1 && Math.abs(e.deltaY) > 0) {
+                e.preventDefault();
+                galleryScroll.scrollBy({
+                    left: e.deltaY * 1.8,
+                    behavior: "auto",
+                });
+            }
+        }, { passive: false });
+
+        // Touch swipe support (native with scroll-snap works already,
+        // but we enhance by making the gallery feel smooth)
+        let touchStartX = 0;
+        galleryScroll.addEventListener("touchstart", (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        // ── Autoplay audio attempt on load ──
+        document.addEventListener("DOMContentLoaded", function() {
+            playAudio();
+        });
+
+        // Fallback: click anywhere to start audio if not already playing
+        document.addEventListener("click", function audioFallback() {
+            if (audio && audio.paused && !heart.classList.contains("show")) {
+                playAudio();
+            }
+            document.removeEventListener("click", audioFallback);
+        }, { once: true });
+
+        // Build gallery cards on page load so they're ready
+        buildGallery();
+
+        console.log("💖 All set! Click 'See the heart' then 'Open My Heart' to view the gallery.");
+    </script>
 </body>
 </html>
