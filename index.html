@@ -31,8 +31,6 @@
         linear-gradient(180deg, #09090f, var(--bg));
     }
 
-
-
     .stage {
       min-height: 100vh;
       display: grid;
@@ -238,11 +236,17 @@
     <div class="glow"></div>
   </main>
 
+  <!-- Background music -->
+  <audio id="bgMusic" preload="auto" loop style="display:none;">
+    <source src="Hey There Delilah.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const heart = document.getElementById("heart");
     const intro = document.getElementById("intro");
     const startBtn = document.getElementById("startBtn");
     const stage = document.getElementById("stage");
+    const audio = document.getElementById("bgMusic");
 
     const words = ["I love you", "love you", "forever", "my heart", "<3"];
     const points = [];
@@ -293,10 +297,18 @@
       heart.appendChild(fragment);
     }
 
+    function playAudio() {
+      if (audio) {
+        audio.play().catch(() => {});
+      }
+    }
+
     function showHeart() {
       makeHeart();
       intro.classList.add("hide");
       heart.classList.add("show");
+      // start music on button click
+      playAudio();
     }
 
     startBtn.addEventListener("click", showHeart);
@@ -311,6 +323,19 @@
       const y = (event.clientY / window.innerHeight - 0.5) * -8;
       heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
     });
+
+    // Try to autoplay when page loads (may be blocked)
+    document.addEventListener("DOMContentLoaded", function() {
+      playAudio();
+    });
+
+    // Fallback: if user clicks anywhere and audio hasn't started, start it
+    document.addEventListener("click", function audioFallback() {
+      if (audio && audio.paused && !heart.classList.contains("show")) {
+        playAudio();
+      }
+      document.removeEventListener("click", audioFallback);
+    }, { once: true });
   </script>
 </body>
 </html>
