@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sayali, I Love You ♾️❤️</title>
+  <title>Sayali, I love you ♾️❤️</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='35%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%23ff9abb'/%3E%3Cstop offset='45%25' stop-color='%23ff2d75'/%3E%3Cstop offset='100%25' stop-color='%23b8003d'/%3E%3C/radialGradient%3E%3Cfilter id='s' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeDropShadow dx='0' dy='4' stdDeviation='4' flood-color='%23ff2d75' flood-opacity='.55'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050508'/%3E%3Cpath filter='url(%23s)' fill='url(%23g)' d='M32 54S9 40.5 9 23.8C9 15.6 15.1 10 22.2 10c4.4 0 7.8 2 9.8 5.1C34 12 37.4 10 41.8 10 48.9 10 55 15.6 55 23.8 55 40.5 32 54 32 54Z'/%3E%3C/svg%3E" />
   <style>
     :root {
@@ -11,7 +11,6 @@
       --pink: #ff2d75;
       --pink-soft: #ff7aa8;
       --red: #ff174f;
-      --gold: #ffd27a;
       --white: #fff7fb;
     }
 
@@ -26,33 +25,6 @@
         radial-gradient(circle at 50% 45%, rgba(255, 45, 117, 0.16), transparent 34%),
         radial-gradient(circle at 50% 74%, rgba(255, 0, 80, 0.2), transparent 26%),
         linear-gradient(180deg, #09090f, var(--bg));
-      position: relative;
-    }
-
-    /* ambient floating particles */
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      bottom: -10%;
-      font-size: var(--size);
-      opacity: 0;
-      animation: floatUp var(--dur) linear infinite;
-      animation-delay: var(--delay);
-      filter: drop-shadow(0 0 6px rgba(255, 45, 117, 0.55));
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-      8% { opacity: var(--peak); }
-      92% { opacity: var(--peak); }
-      100% { transform: translateY(-115vh) translateX(var(--drift)) rotate(var(--spin)); opacity: 0; }
     }
 
     .stage {
@@ -61,8 +33,6 @@
       place-items: center;
       perspective: 900px;
       padding: 24px 18px;
-      position: relative;
-      z-index: 2;
     }
 
     .intro {
@@ -77,41 +47,13 @@
       pointer-events: none;
     }
 
-    .infinity-mark {
-      width: 84px;
-      margin: 0 auto 14px;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 10px rgba(255, 45, 117, 0.65));
-    }
-
-    .infinity-mark path {
-      fill: none;
-      stroke: url(#infGrad);
-      stroke-width: 5;
-      stroke-linecap: round;
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      animation: drawInf 2.4s ease forwards 0.2s;
-    }
-
-    @keyframes drawInf {
-      to { stroke-dashoffset: 0; }
-    }
-
     .main-title {
-      font-size: clamp(30px, 6.6vw, 60px);
+      font-size: clamp(26px, 5.6vw, 54px);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.15;
+      max-width: 90vw;
+      margin: 0 auto;
       text-shadow: 0 0 28px rgba(255, 45, 117, 0.7);
-    }
-
-    .subtitle {
-      margin-top: 10px;
-      font-size: clamp(13px, 2.4vw, 16px);
-      color: var(--pink-soft);
-      letter-spacing: 0.4px;
-      opacity: 0;
-      animation: lineIn 0.6s ease forwards 0.3s;
     }
 
     .log {
@@ -133,55 +75,9 @@
     .log-line:nth-child(2) { animation-delay: 0.45s; }
     .log-line:nth-child(3) { animation-delay: 0.9s; }
     .log-line:nth-child(4) { animation-delay: 1.35s; }
-    .log-line:nth-child(5) { animation-delay: 1.8s; }
 
     @keyframes lineIn {
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    .button {
-      position: relative;
-      overflow: hidden;
-      margin-top: 22px;
-      border: 0;
-      border-radius: 10px;
-      padding: 13px 26px;
-      color: white;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      background: linear-gradient(135deg, #ff2d75, #b8003d);
-      box-shadow: 0 12px 38px rgba(255, 45, 117, 0.36);
-      opacity: 0;
-      transform: translateY(10px);
-      animation: buttonIn 0.45s ease forwards 2.3s, pulseGlow 2.4s ease-in-out infinite 3s;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-    }
-
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.55);
-      transform: scale(0);
-      animation: rippleAnim 0.6s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes rippleAnim {
-      to { transform: scale(3.5); opacity: 0; }
-    }
-
-    @keyframes buttonIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 12px 38px rgba(255, 45, 117, 0.36); }
-      50% { box-shadow: 0 12px 46px rgba(255, 45, 117, 0.66); }
     }
 
     .heart-wrap {
@@ -219,7 +115,9 @@
       font-size: clamp(7px, 1.3vw, 13px);
       white-space: nowrap;
       color: hsl(var(--hue), 100%, var(--light));
-      text-shadow: 0 0 7px rgba(255, 45, 117, 0.85), 0 0 18px rgba(255, 45, 117, 0.5);
+      text-shadow:
+        0 0 7px rgba(255, 45, 117, 0.85),
+        0 0 18px rgba(255, 45, 117, 0.5);
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.2) rotate(var(--rot));
       animation: wordIn 0.75s cubic-bezier(.2,.9,.2,1.15) forwards;
@@ -235,25 +133,19 @@
       inset: 0;
       display: grid;
       place-items: center;
-      gap: 6px;
-      font-size: clamp(26px, 5.6vw, 54px);
-      font-weight: 950;
+      padding: 0 8%;
+      font-size: clamp(20px, 5vw, 48px);
+      font-weight: 900;
+      line-height: 1.25;
       text-align: center;
       color: white;
-      text-shadow: 0 0 22px rgba(255, 255, 255, 0.5), 0 0 46px rgba(255, 45, 117, 0.9);
+      text-shadow:
+        0 0 22px rgba(255, 255, 255, 0.5),
+        0 0 46px rgba(255, 45, 117, 0.9);
       opacity: 0;
       transform: scale(0.9);
       animation: centerIn 0.8s ease forwards 1.15s;
       pointer-events: none;
-      line-height: 1.1;
-    }
-
-    .center-text .small {
-      font-size: 0.36em;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 1px;
-      text-shadow: 0 0 14px rgba(255, 210, 122, 0.8);
     }
 
     @keyframes centerIn {
@@ -271,90 +163,35 @@
       filter: blur(18px);
       pointer-events: none;
       opacity: 0.85;
-      z-index: 1;
     }
-
-    .replay {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 122, 168, 0.4);
-      color: var(--pink-soft);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 9px 18px;
-      border-radius: 999px;
-      cursor: pointer;
-      opacity: 0;
-      z-index: 9;
-      animation: fadeInReplay 0.6s ease forwards 2.6s;
-      backdrop-filter: blur(6px);
-    }
-
-    .replay:hover { background: rgba(255, 122, 168, 0.16); }
-
-    @keyframes fadeInReplay { to { opacity: 1; } }
 
     @media (max-width: 520px) {
       .heart-wrap { width: 106vw; }
       .heart-word { font-size: 7px; }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
   </style>
 </head>
 <body>
-  <svg width="0" height="0" style="position:absolute">
-    <defs>
-      <linearGradient id="infGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#ff7aa8" />
-        <stop offset="100%" stop-color="#ff174f" />
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <div class="particles" id="particles"></div>
-
   <main class="stage" id="stage">
     <section class="intro" id="intro">
-      <svg class="infinity-mark" viewBox="0 0 120 60">
-        <path d="M30,30 C30,12 48,12 60,30 C72,48 90,48 90,30 C90,12 72,12 60,30 C48,48 30,48 30,30 Z" />
-      </svg>
-      <h1 class="main-title">Sayali, I Love You</h1>
-      <p class="subtitle">♾️ forever &amp; always ❤️</p>
+      <h1 class="main-title">Sayali, I love you ♾️❤️</h1>
       <div class="log">
         <div class="log-line">[system] Initializing HEART_PROTOCOL_v2.0...</div>
-        <div class="log-line">[status] Loading memory fragments of us...</div>
-        <div class="log-line">[fonts] Preloading custom heart font for Sayali...</div>
-        <div class="log-line">[sync] Matching heartbeat... 100%</div>
+        <div class="log-line">[status] Loading memory fragments...</div>
+        <div class="log-line">[fonts] Preloading custom heart font for you...</div>
         <div class="log-line">[ready] One message is waiting.</div>
       </div>
-      <button class="button" id="startBtn">ACCEPT MESSAGE</button>
     </section>
 
     <section class="heart-wrap" id="heart"></section>
     <div class="glow"></div>
   </main>
 
-  <button class="replay" id="replayBtn" style="display:none;">↺ replay</button>
-
   <script>
     const heart = document.getElementById("heart");
     const intro = document.getElementById("intro");
-    const startBtn = document.getElementById("startBtn");
-    const replayBtn = document.getElementById("replayBtn");
-    const particlesWrap = document.getElementById("particles");
 
-    const words = ["I love you", "Sayali", "forever", "my heart", "♾️", "always", "❤️", "you & me"];
+    const words = ["I love you", "Sayali", "forever", "my heart", "♾️❤️"];
     const points = [];
     const step = 0.105;
 
@@ -396,72 +233,33 @@
 
       const center = document.createElement("div");
       center.className = "center-text";
-      center.innerHTML = 'Sayali<span class="small">I Love You ♾️❤️</span>';
+      center.textContent = "Sayali, I love you ♾️❤️";
       fragment.appendChild(center);
 
       heart.innerHTML = "";
       heart.appendChild(fragment);
     }
 
-    function makeParticles() {
-      particlesWrap.innerHTML = "";
-      const glyphs = ["❤️", "♾️", "💖", "✨"];
-      const count = 22;
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement("span");
-        el.className = "particle";
-        el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
-        const left = Math.random() * 100;
-        const size = 12 + Math.random() * 20;
-        const dur = 9 + Math.random() * 10;
-        const delay = Math.random() * 12;
-        const drift = (Math.random() * 120 - 60).toFixed(0) + "px";
-        const spin = (Math.random() * 60 - 30).toFixed(0) + "deg";
-        const peak = (0.35 + Math.random() * 0.4).toFixed(2);
-        el.style.left = left + "%";
-        el.style.setProperty("--size", size + "px");
-        el.style.setProperty("--dur", dur + "s");
-        el.style.setProperty("--delay", delay + "s");
-        el.style.setProperty("--drift", drift);
-        el.style.setProperty("--spin", spin);
-        el.style.setProperty("--peak", peak);
-        particlesWrap.appendChild(el);
-      }
-    }
-
     function showHeart() {
+      if (heart.classList.contains("show")) return;
       makeHeart();
       intro.classList.add("hide");
-      heart.classList.remove("show");
-      void heart.offsetWidth;
       heart.classList.add("show");
-      replayBtn.style.display = "block";
     }
 
-    function resetToIntro() {
-      heart.classList.remove("show");
-      intro.classList.remove("hide");
-      replayBtn.style.display = "none";
-    }
+    // the message reveals itself automatically shortly after the page opens
+    let autoTimer = setTimeout(showHeart, 3200);
 
-    startBtn.addEventListener("click", (e) => {
-      const rect = startBtn.getBoundingClientRect();
-      const ripple = document.createElement("span");
-      ripple.className = "ripple";
-      const size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
-      ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
-      startBtn.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 650);
+    // tapping anywhere or pressing a key reveals it right away instead of waiting
+    intro.addEventListener("click", () => {
+      clearTimeout(autoTimer);
       showHeart();
     });
 
-    replayBtn.addEventListener("click", resetToIntro);
-
     document.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
-        if (!heart.classList.contains("show")) showHeart();
+        clearTimeout(autoTimer);
+        showHeart();
       }
     });
 
@@ -471,8 +269,6 @@
       const y = (event.clientY / window.innerHeight - 0.5) * -8;
       heart.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
     });
-
-    makeParticles();
   </script>
 </body>
 </html>
